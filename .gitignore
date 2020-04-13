@@ -20,3 +20,8 @@
 /build
 /captures
 .externalNativeBuild
+/gradlew
+/gradlew.bat
+/gradle.properties
+/gradle/wrapper/
+/app/proguard-rules.pro
