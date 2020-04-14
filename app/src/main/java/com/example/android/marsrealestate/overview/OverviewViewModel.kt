@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.MarsApi
+import com.example.android.marsrealestate.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,12 +33,15 @@ import kotlinx.coroutines.launch
 class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
-    private val _response = MutableLiveData<String>()
+    private val _status = MutableLiveData<String>()
 
     // The external immutable LiveData for the request status String
-    val response: LiveData<String>
-        get() = _response
+    val status: LiveData<String>
+        get() = _status
 
+    private val _property = MutableLiveData<MarsProperty>()
+    val property: LiveData<MarsProperty>
+        get() = _property
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -51,6 +55,10 @@ class OverviewViewModel : ViewModel() {
 
     /**
      * Sets the value of the status LiveData to the Mars API status.
+     *
+     * Retrofit will return a deferred and then must await, the result which has appearance
+     * of synchronous code, if there's an error, await will return that by throwing an
+     * exception
      */
     private fun getMarsRealEstateProperties() {
 
@@ -61,11 +69,15 @@ class OverviewViewModel : ViewModel() {
             try {
 
                 val listResult = getPropertiesDeferred.await()
-                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+                _status.value = "Success: ${listResult.size} Mars properties retrieved"
+
+                if (listResult.isNotEmpty()) {
+                    _property.value = listResult[0]
+                }
 
             } catch (e: Exception) {
 
-                _response.value = "Failure: ".plus(e.message)
+                _status.value = "Failure: ".plus(e.message)
 
             }
         }
