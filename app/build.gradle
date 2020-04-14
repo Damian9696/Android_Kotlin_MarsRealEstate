@@ -75,4 +75,14 @@ dependencies {
 
     //Moshi Kotlin
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
+
+    //Android Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+
+    //Retrofit Kotlin Coroutines Adapter
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+
 }
