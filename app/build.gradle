@@ -66,6 +66,13 @@ dependencies {
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
-    //Retrofit Scalars (primitives, boxed, and String)
-    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+
+    //Retrofit Moshi converter
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    //Moshi
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+
+    //Moshi Kotlin
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 }
